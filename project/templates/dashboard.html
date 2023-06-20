@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+  {% block content %}
+
+  <section class="home-section">
+      <div class="text">Dashboard</div>
+      <div class="container">
+        {% if f_all|length==0 %}
+        <div class="alert alert-dark" role="alert">
+            No Section Available. Please Add.
+        </div>
+
+
+        {% else %}
+
+
+        {% for f1 in f_all %}
+        <div class="card" id="card-1">
+           <a type="button" href="/section/{{f1.section_id}}/{{LI}}">{{f1.section_name}}</a>
+           <p></p>
+        </div>
+
+        {% endfor %}
+        {% endif %}
+        {%if type!="s"%}
+        <button class="open-button2" onclick="openDeleteForm()">-
+          <span class="tooltiptext">DELETE</span> 
+        </button>
+
+        <div class="form-popup" id="deleteForm">
+           <form action="/delete_section/{{LI}}" method="post" class="form-container">
+              <label for="text"><b>Section Name</b></label>
+              <input type="text" placeholder="name" name="name" required>
+              <div>
+                <button  type="submit" class="btn" >DELETE</button>
+                <button  type="button" class="btn cancel" onclick="closeForm()">Cancel</button>
+               </div>
+            </form>
+          </div>
+
+        
+          <button class="open-button1" onclick="openAddForm()">+
+            <span class="tooltiptext">ADD</span> 
+          </button>
+
+          <div class="form-popup" id="addForm">
+            <form action="/add_section/{{LI}}" method="post" class="form-container">
+              <label for="text"><b>Section Name</b></label>
+              <input type="text" placeholder="name" name="name" required>
+              <div>
+                <button  type="submit" class="btn" >ADD</button>
+                <button  type="button" class="btn cancel" onclick="closeForm()">cancel</button>
+              </div>
+            </form>
+          </div>
+          {%if type=="t"%}
+
+          <button class="open-button6" onclick="opencreateClassForm()">Create Class</button>
+
+          <div class="form-popup" id="createClassForm">
+            <form action="/add_class/{{LI}}" method="post" class="form-container">
+              <label for="text"><b>Create Class</b></label>
+              <input type="text" placeholder="Class Name" name="name" required>
+              <div>
+                <button  type="submit" class="btn" >Create</button>
+                <button  type="button" class="btn cancel" onclick="closecreateClassForm()">Cancel</button>
+              </div>
+            </form>
+          </div>
+
+
+          <button class="open-button4" onclick="openaddStudentForm()">Add Student</button>
+          <div class="form-popup" id="addStudentForm">
+            <form action="/add_student/{{LI}}" method="post" class="form-container">
+              <label for="text"><b>Add Student</b></label>
+              <input type="text" placeholder="Name" name="name" required>
+              <input type="text" placeholder="Username" name="username" required>
+              <input type="password" placeholder="Password" name="password" required><br>
+              <input type="tel"  name="phone" placeholder="Mobile Number" pattern="[7-9]{1}[0-9]{9}" required><br>
+              <label for="gender">Gender:</label>
+              <select name="gender" required>
+                <option value=Male>Male</option>
+                <option value=Female>Female</option>
+                <option value=Other>Other</option>
+              </select>
+              <div><br></div>
+              <label for="class_name">Class:</label>
+              <select name="class_name" required>
+                {%for f in class_all%}
+                <option value={{f.class_name}}>{{f.class_name}}</option>
+                {%endfor%}
+              </select>
+              {% if class_all|length==0 %}
+                  <h5 style="color: red;">*Please create a Class</h5>
+              {%endif%}    
+              <div>
+                <button  type="submit" class="btn" >ADD</button>
+                <button  type="button" class="btn cancel" onclick="closeaddStudentForm()">Cancel</button>
+              </div>
+            </form>
+          </div>
+
+          <button class="open-button5" onclick="openassignForm()">Assign
+          </button>
+
+          <div class="form-popup" id="assignForm">
+            <form action="/assign/{{LI}}" method="post" class="form-container">
+              <label for="text"><b>Assign Section</b></label>
+              <input type="text" placeholder=" section name" name="section_name" required>
+              <label for="class_name">Class:</label>
+              <select name="class_name" required>
+                {%for f in class_all%}
+                <option value={{f.class_name}}>{{f.class_name}}</option>
+                {%endfor%}
+              </select>
+              {% if class_all|length==0 %}
+              <h5 style="color: red;">*Please create a Class</h5>
+              {%endif%}  
+              <div>
+                <button  type="submit" class="btn" >Assign</button>
+                <button  type="button" class="btn cancel" onclick="closeassignForm()">Cancel</button>
+              </div>
+            </form>
+          </div>
+          {%endif%}
+          {%endif%}
+    </div>
+  </section>
+ 
+  {% endblock %}  

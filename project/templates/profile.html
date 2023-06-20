@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+  {% block content %}
+  <section class="home-section">
+    <div class="profile">
+      <div class="right_profile">
+        <h4>Information</h4>
+        <h3>Name</h3>
+        <h5>{{name}}</h5><br>
+        <h3>Phone</h3>
+        <h5>{{phone}}</h5><br>
+        <h3>Gender</h3>
+        <h5>{{gender}}</h5>
+      </div>
+      <div class="left_profile">
+        <img id="avatar" src="/static/images/profile.png" alt="">
+        
+        <br>
+        <h3 style="margin-bottom: 5px;">{{username}}</h3>
+        {%if type=="s"%}
+          <h5>Student</h5>
+        {%elif type=="t"%}
+          <h5>Teacher</h5>
+        {%endif%}
+    </div>
+      </div>
+  </section>
+  {% endblock %}
+  
